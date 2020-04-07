@@ -1,0 +1,60 @@
+service: dotnet-21-vs-dotnet-31
+
+provider:
+  name: aws
+  memorySize: 128
+  timeout: 30
+  region: eu-west-1
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+       - "*"
+      Resource: "*"
+  tracing:
+    lambda: true
+
+package:
+  individually: true
+
+functions:
+  simple-21:
+    reservedConcurrency: 1
+    runtime: dotnetcore2.1
+    handler: LambdaBenchmark::LambdaBenchmark.Handler::Handle
+    package:
+      artifact: simple-21.zip
+
+  complex-21:
+    reservedConcurrency: 1
+    runtime: dotnetcore2.1
+    handler: LambdaBenchmark::LambdaBenchmark.Handler::Handle
+    package:
+      artifact: complex-21.zip
+
+  simple-31:
+      reservedConcurrency: 1
+      runtime: dotnetcore3.1
+      handler: LambdaBenchmark::LambdaBenchmark.Handler::Handle
+      package:
+        artifact: simple-31.zip
+
+  complex-31:
+      reservedConcurrency: 1
+      runtime: dotnetcore3.1
+      handler: LambdaBenchmark::LambdaBenchmark.Handler::Handle
+      package:
+        artifact: complex-31.zip
+
+  simple-31-default:
+      reservedConcurrency: 1
+      runtime: dotnetcore3.1
+      handler: LambdaBenchmark::LambdaBenchmark.Handler::Handle
+      package:
+        artifact: simple-31-default.zip
+
+  complex-31-default:
+      reservedConcurrency: 1
+      runtime: dotnetcore3.1
+      handler: LambdaBenchmark::LambdaBenchmark.Handler::Handle
+      package:
+        artifact: complex-31-default.zip
